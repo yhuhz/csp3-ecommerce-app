@@ -26,7 +26,11 @@ const Banner = () => {
                 Your one-stop shop for everything you love. Explore now and find
                 amazing deals!
               </p>
-              <Button variant="light" size="lg">
+              <Button
+                variant="light"
+                size="lg"
+                onClick={() => (window.location.href = '/products')}
+              >
                 Shop Now
               </Button>
             </div>
