@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import ProductSearch from './SearchProducts';
 
 export default function UserView({ productData }) {
   const [products, setProducts] = useState([]);
@@ -11,6 +12,7 @@ export default function UserView({ productData }) {
 
   return (
     <>
+    <ProductSearch />
       <Row className="justify-content-center mt-5">
         <Col md={8} className="text-center">
           <h1 className="mb-4">Our Products</h1>
