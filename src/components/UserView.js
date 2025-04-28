@@ -26,7 +26,7 @@ export default function UserView({ productData }) {
                   <div>
                     <Card.Title>
                       <a 
-                        href="#" 
+                        href={`/products/${product._id}`}
                         style={{
                           textDecoration: "underline",
                           color: "#0d6efd",
