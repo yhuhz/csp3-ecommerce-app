@@ -47,61 +47,33 @@ const Highlights = ({ productData }) => {
             >
               <div>
                 <img
-                  src={product.image}
+                  src={
+                    product.imageUrl
+                      ? product.imageUrl
+                      : 'https://commons.wikimedia.org/wiki/File:No-Image-Placeholder.svg'
+                  }
                   alt={product.name}
-                  style={{ width: '100%', borderRadius: '10px' }}
+                  style={{
+                    width: '100%',
+                    height: '350px',
+                    objectFit: 'cover',
+                    borderRadius: '10px',
+                    transition: 'transform 0.3s ease-in-out',
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform = 'scale(1.05)')
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = 'scale(1)')
+                  }
                 />
+
                 <h5>{product.name}</h5>
                 <p>{product.description}</p>
               </div>
             </Col>
           ))}
         </Row>
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}
-        >
-          <button
-            onClick={handlePrev}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'white',
-              fontSize: '2rem',
-              cursor: currentIndex === 0 ? 'not-allowed' : 'pointer',
-              pointerEvents: currentIndex === 0 ? 'none' : 'auto',
-              marginLeft: '10px',
-            }}
-          >
-            &#60;
-          </button>
-          <button
-            onClick={handleNext}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'white',
-              fontSize: '2rem',
-              cursor:
-                currentIndex + itemsPerPage >= products.length
-                  ? 'not-allowed'
-                  : 'pointer',
-              pointerEvents:
-                currentIndex + itemsPerPage >= products.length
-                  ? 'none'
-                  : 'auto',
-              marginRight: '10px',
-            }}
-          >
-            &#62;
-          </button>
-        </div>
       </Container>
     </div>
   );

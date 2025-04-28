@@ -16,8 +16,15 @@ export default function Home() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setProductData(data);
-      });
+        if (data.length > 3) {
+          // Shuffle the array and select three random items
+          const shuffled = data.sort(() => 0.5 - Math.random());
+          setProductData(shuffled.slice(0, 3));
+        } else {
+          setProductData(data); // Use the full list if there are 3 or fewer items
+        }
+      })
+      .catch((error) => console.error('Error fetching data:', error));
   };
 
   useEffect(() => {
