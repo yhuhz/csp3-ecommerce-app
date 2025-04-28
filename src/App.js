@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Logout from './pages/Logout';
 import Products from './pages/Products';
+import ProductView from './pages/ProductView';
 
 function App() {
   const [user, setUser] = useState({
@@ -55,6 +56,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/products/:productId" element={<ProductView />} />
           </Routes>
         </Container>
       </Router>
