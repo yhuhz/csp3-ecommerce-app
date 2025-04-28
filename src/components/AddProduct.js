@@ -8,6 +8,7 @@ export default function AddProduct({ fetchData }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   const [showAdd, setShowAdd] = useState(false);
 
@@ -34,11 +35,13 @@ export default function AddProduct({ fetchData }) {
           name: name,
           description: description,
           price: price,
+          imageUrl: imageUrl,
         }),
       }
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data._id !== null) {
           notyf.success('Product Added');
           addClose();
@@ -81,6 +84,15 @@ export default function AddProduct({ fetchData }) {
                 required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Image URL</Form.Label>
+              <Form.Control
+                type="text"
+                required
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
               />
             </Form.Group>
             <Form.Group>

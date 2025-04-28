@@ -9,6 +9,7 @@ export default function EditProduct({ product, fetchData }) {
   const [name, setName] = useState(product.name);
   const [description, setDescription] = useState(product.description);
   const [price, setPrice] = useState(product.price);
+  const [imageUrl, setImageUrl] = useState(product.imageUrl);
 
   const [showEdit, setShowEdit] = useState(false);
 
@@ -35,6 +36,7 @@ export default function EditProduct({ product, fetchData }) {
           name: name,
           description: description,
           price: price,
+          imageUrl: imageUrl,
         }),
       }
     )
@@ -80,6 +82,15 @@ export default function EditProduct({ product, fetchData }) {
                 required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Image URL</Form.Label>
+              <Form.Control
+                type="text"
+                required
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
               />
             </Form.Group>
             <Form.Group>

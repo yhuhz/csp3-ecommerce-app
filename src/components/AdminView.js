@@ -8,27 +8,34 @@ export default function Products({ productData, fetchData }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    setProducts(
-      productData.map((product) => {
-        return (
-          <tr key={product._id}>
-            <td>{product._id}</td>
-            <td>{product.name}</td>
-            <td>{product.description}</td>
-            <td>{product.price}</td>
-            <td className={product.isActive ? 'text-success' : 'text-danger'}>
-              {product.isActive ? 'Available' : 'Unavailable'}
-            </td>
-            <td className="text-center">
-              <Button variant="info">Orders</Button>
-              <EditProduct product={product} fetchData={fetchData} />
-              <ArchiveProducts product={product} fetchData={fetchData} />
-            </td>
-          </tr>
-        );
-      })
-    );
-  }, [productData]);
+    if (Array.isArray(productData)) {
+      setProducts(
+        productData.map((product) => {
+          return (
+            <tr key={product._id}>
+              <td>{product._id}</td>
+              <td>{product.name}</td>
+              <td>{product.description}</td>
+              <td>{product.price}</td>
+              <td>{product.imageUrl.slice(0, 15)}...</td>
+              <td className={product.isActive ? 'text-success' : 'text-danger'}>
+                {product.isActive ? 'Available' : 'Unavailable'}
+              </td>
+              <td className="text-center">
+                <Button variant="info">Orders</Button>
+              </td>
+              <td>
+                <EditProduct product={product} fetchData={fetchData} />
+              </td>
+              <td>
+                <ArchiveProducts product={product} fetchData={fetchData} />
+              </td>
+            </tr>
+          );
+        })
+      );
+    }
+  }, [productData, fetchData]);
 
   return (
     <>
@@ -42,8 +49,11 @@ export default function Products({ productData, fetchData }) {
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
+            <th>Image URL</th>
             <th>Availability</th>
-            <th className="text-center">Actions</th>
+            <th className="text-center" colSpan={'3'}>
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>{products}</tbody>
