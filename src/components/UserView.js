@@ -22,6 +22,12 @@ export default function UserView({ productData }) {
           products.map((product) => (
             <Col key={product._id} md={4} className="mb-4">
               <Card className="h-100">
+              <Card.Img 
+                variant="top" 
+                src={product.imageUrl} 
+                style={{ height: "250px", objectFit: "cover" }} 
+                alt={product.name} 
+              />
                 <Card.Body className="d-flex flex-column justify-content-between">
                   <div>
                     <Card.Title>
