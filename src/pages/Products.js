@@ -4,14 +4,14 @@ import UserView from '../components/UserView';
 import AdminView from '../components/AdminView';
 
 export default function Products() {
-  const {user} = useContext(UserProvider);
+  const { user } = useContext(UserProvider);
   const [productData, setProductData] = useState([]);
 
   const fetchData = () => {
     let fetchUrl =
       user.isAdmin === true
-        ? 'http://localhost:4000/products/all'
-        : 'http://localhost:4000/products/active';
+        ? 'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/all'
+        : 'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/active';
 
     fetch(fetchUrl, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },

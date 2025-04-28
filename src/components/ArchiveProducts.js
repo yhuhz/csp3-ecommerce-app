@@ -1,0 +1,84 @@
+import { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+import { Notyf } from 'notyf';
+
+export default function ArchiveProducts({ product, fetchData }) {
+  const notyf = new Notyf();
+
+  const [productId] = useState(product._id);
+  const [isActive, setIsActive] = useState(product.isActive);
+
+  function archiveToggle() {
+    fetch(
+      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/${productId}/archive`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          notyf.success('Product archived successfully');
+          fetchData();
+          setIsActive(false);
+        } else {
+          notyf.error('Something went wrong. Please try again');
+          fetchData();
+        }
+      });
+  }
+
+  function activateToggle() {
+    fetch(
+      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/${productId}/activate`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          notyf.success('Product archived successfully');
+          fetchData();
+          setIsActive(true);
+        } else {
+          notyf.error('Something went wrong. Please try again');
+          fetchData();
+        }
+      });
+  }
+
+  return (
+    <>
+      {isActive ? (
+        <Button
+          variant="danger"
+          className="mx-1"
+          onClick={() => {
+            archiveToggle();
+          }}
+        >
+          Disable
+        </Button>
+      ) : (
+        <Button
+          variant="success"
+          className="mx-1"
+          onClick={() => {
+            activateToggle();
+          }}
+        >
+          Activate
+        </Button>
+      )}
+    </>
+  );
+}

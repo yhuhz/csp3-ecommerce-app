@@ -1,54 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
-const Highlights = () => {
-  const products = [
-    {
-      name: 'Product 1',
-      image: 'https://via.placeholder.com/300',
-      description: 'Description for Product 1',
-    },
-    {
-      name: 'Product 2',
-      image: 'https://via.placeholder.com/300',
-      description: 'Description for Product 2',
-    },
-    {
-      name: 'Product 3',
-      image: 'https://via.placeholder.com/300',
-      description: 'Description for Product 3',
-    },
-    {
-      name: 'Product 4',
-      image: 'https://via.placeholder.com/300',
-      description: 'Description for Product 4',
-    },
-    {
-      name: 'Product 5',
-      image: 'https://via.placeholder.com/300',
-      description: 'Description for Product 5',
-    },
-    {
-      name: 'Product 6',
-      image: 'https://via.placeholder.com/300',
-      description: 'Description for Product 6',
-    },
-    {
-      name: 'Product 7',
-      image: 'https://via.placeholder.com/300',
-      description: 'Description for Product 7',
-    },
-    {
-      name: 'Product 8',
-      image: 'https://via.placeholder.com/300',
-      description: 'Description for Product 8',
-    },
-    {
-      name: 'Product 9',
-      image: 'https://via.placeholder.com/300',
-      description: 'Description for Product 9',
-    },
-  ];
+const Highlights = ({ productData }) => {
+  const products = productData;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 3;

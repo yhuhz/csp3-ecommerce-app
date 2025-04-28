@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 
-
-
 export default function UserView({ productData }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     setProducts(
       productData.map((products) => {
-        return <></>
+        return <></>;
       })
     );
   }, [productData]);
@@ -21,7 +19,6 @@ export default function UserView({ productData }) {
           <h1 className="mb-4">Our Products</h1>
         </Col>
       </Row>
-      
 
       {products}
     </>
