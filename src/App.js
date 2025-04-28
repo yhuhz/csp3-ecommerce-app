@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
 import AppNavbar from './components/AppNavbar';
 import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Logout from './pages/Logout';
 
 function App() {
   const [user, setUser] = useState({
@@ -17,11 +20,14 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem('token') !== null) {
-      fetch('http://localhost:4000/users/details', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      })
+      fetch(
+        'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/details',
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           setUser({
@@ -44,6 +50,9 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </Container>
       </Router>
