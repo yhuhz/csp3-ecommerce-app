@@ -81,17 +81,24 @@ export default function ProductView() {
                 Price:
               </Card.Subtitle>
               <Card.Title style={{ color: 'orange', fontWeight: 'bold' }}>
-                ₱{price}
+                {new Intl.NumberFormat('en-PH', {
+                  style: 'currency',
+                  currency: 'PHP',
+                }).format(price)}
               </Card.Title>
 
               {user.id !== null ? (
-                <Button
-                  variant="primary"
-                  className="w-100 mt-3"
-                  onClick={addToCart}
-                >
-                  Add to Cart
-                </Button>
+                !user.isAdmin ? (
+                  <Button
+                    variant="primary"
+                    className="w-100 mt-3"
+                    onClick={addToCart}
+                  >
+                    Add to Cart
+                  </Button>
+                ) : (
+                  ''
+                )
               ) : (
                 <Link to="/login" className="btn btn-danger w-100 mt-3">
                   Login to Add to Cart

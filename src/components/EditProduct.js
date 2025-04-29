@@ -56,8 +56,12 @@ export default function EditProduct({ product, fetchData }) {
 
   return (
     <>
-      <Button variant="primary" className="mx-1" onClick={() => editOpen()}>
-        Edit
+      <Button
+        variant="primary"
+        className="px-1 py-0"
+        onClick={() => editOpen()}
+      >
+        <i class="bi bi-pencil-square"></i>
       </Button>
 
       <Modal show={showEdit} onHide={editClose}>

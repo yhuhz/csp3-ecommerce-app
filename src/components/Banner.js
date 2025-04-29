@@ -5,7 +5,6 @@ const Banner = () => {
   return (
     <div
       style={{
-        background: 'linear-gradient(to right, #eeaeca, #94bbe9)',
         padding: '50px',
         color: 'white',
         textAlign: 'center',
@@ -16,7 +15,7 @@ const Banner = () => {
           <Col md={8} lg={6}>
             <div
               style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                backgroundColor: '#a5a5a5',
                 padding: '20px',
                 borderRadius: '8px',
               }}
@@ -27,7 +26,7 @@ const Banner = () => {
                 amazing deals!
               </p>
               <Button
-                variant="light"
+                variant="primary"
                 size="lg"
                 onClick={() => (window.location.href = '/products')}
               >

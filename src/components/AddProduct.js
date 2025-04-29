@@ -57,8 +57,8 @@ export default function AddProduct({ fetchData }) {
   return (
     <>
       <div className="text-center">
-        <Button variant="primary" className="mb-5" onClick={() => addOpen()}>
-          Add Product
+        <Button variant="success" className="mb-3" onClick={() => addOpen()}>
+          <i class="bi bi-bag-plus-fill"></i> Add Product
         </Button>
       </div>
 

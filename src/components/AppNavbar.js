@@ -10,10 +10,10 @@ export default function AppNavbar() {
   const { user } = useContext(UserContext);
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" style={{ backgroundColor: '#a5a5a5' }}>
       <Container>
         <Navbar.Brand as={NavLink} to="/">
-          E-Commerce App
+          JN Store
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
