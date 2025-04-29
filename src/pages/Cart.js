@@ -1,11 +1,13 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Row, Col } from 'react-bootstrap';
 import UserContext from '../context/UserContext';
 import { Notyf } from 'notyf';
 
 export default function Products() {
   const { user } = useContext(UserContext);
+  const token = localStorage.getItem('token');
+  const [isLoading, setIsLoading] = useState(true);
   const notyf = new Notyf();
 
   const [cartData, setCartData] = useState([]);
@@ -18,7 +20,7 @@ export default function Products() {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           productId: itemId,
@@ -44,7 +46,7 @@ export default function Products() {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     )
@@ -67,7 +69,7 @@ export default function Products() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     )
@@ -90,7 +92,7 @@ export default function Products() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           productsOrdered: cartData,
@@ -110,88 +112,104 @@ export default function Products() {
   };
 
   const fetchData = () => {
-    fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/get-cart`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === `User's cart not found`) {
-          setTotalPrice(0);
-          setCartData([]);
-        } else {
-          setTotalPrice(data.cart.totalPrice);
-          setCartData(
-            data.cart.cartItems.map((item) => {
-              return (
-                <tr key={item.productId}>
-                  <td>{item.productName}</td>
-                  <td className="text-center">
-                    {new Intl.NumberFormat('en-PH', {
-                      style: 'currency',
-                      currency: 'PHP',
-                    }).format(item.subtotal / item.quantity)}
-                  </td>
-                  <td className="text-center">
-                    <div className="d-flex align-items-center justify-content-center">
-                      <button
-                        className="btn btn-success btn-sm p-0 mx-0 px-1"
-                        onClick={() =>
-                          updateQuantity(item.productId, item.quantity - 1)
-                        }
-                      >
-                        <i className="bi bi-dash-circle"></i>
-                      </button>
-                      <div className="mx-3">{item.quantity}</div>
-                      <button
-                        className="btn btn-success btn-sm p-0 mx-0 px-1"
-                        onClick={() =>
-                          updateQuantity(item.productId, item.quantity + 1)
-                        }
-                      >
-                        <i className="bi bi-plus-circle"></i>
-                      </button>
-                    </div>
-                  </td>
-                  <td>
-                    {new Intl.NumberFormat('en-PH', {
-                      style: 'currency',
-                      currency: 'PHP',
-                    }).format(item.subtotal)}
-                  </td>
-
-                  <td className="text-center">
-                    <Button
-                      variant="danger"
-                      className="btn-sm p-0 px-1"
-                      onClick={() => removeItem(item.productId)}
-                    >
-                      <i className="bi bi-trash3-fill"></i>
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })
-          );
+    if (user.id !== null) {
+      fetch(
+        `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/get-cart`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.message === `User's cart not found`) {
+            setTotalPrice(0);
+            setCartData([]);
+          } else {
+            setTotalPrice(data.cart.totalPrice);
+            setCartData(
+              data.cart.cartItems.map((item) => {
+                return (
+                  <tr key={item.productId}>
+                    <td>{item.productName}</td>
+                    <td className="text-center">
+                      {new Intl.NumberFormat('en-PH', {
+                        style: 'currency',
+                        currency: 'PHP',
+                      }).format(item.subtotal / item.quantity)}
+                    </td>
+                    <td className="text-center">
+                      <div className="d-flex align-items-center justify-content-center">
+                        <button
+                          className="btn btn-success btn-sm p-0 mx-0 px-1"
+                          onClick={() =>
+                            updateQuantity(item.productId, item.quantity - 1)
+                          }
+                        >
+                          <i className="bi bi-dash-circle"></i>
+                        </button>
+                        <div className="mx-3">{item.quantity}</div>
+                        <button
+                          className="btn btn-success btn-sm p-0 mx-0 px-1"
+                          onClick={() =>
+                            updateQuantity(item.productId, item.quantity + 1)
+                          }
+                        >
+                          <i className="bi bi-plus-circle"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td>
+                      {new Intl.NumberFormat('en-PH', {
+                        style: 'currency',
+                        currency: 'PHP',
+                      }).format(item.subtotal)}
+                    </td>
+
+                    <td className="text-center">
+                      <Button
+                        variant="danger"
+                        className="btn-sm p-0 px-1"
+                        onClick={() => removeItem(item.productId)}
+                      >
+                        <i className="bi bi-trash3-fill"></i>
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchData();
   }, [user]);
 
-  return user.id === null && user.isAdmin ? (
+  return user.id === null && token === null && user.isAdmin ? (
     <Navigate to="/" />
   ) : (
     <>
       <h3 className="text-center my-5">My Cart</h3>
 
-      {cartData.length > 0 ? (
+      {isLoading ? (
+        <Row className="justify-content-center">
+          <Col md={6}>
+            <p className="text-center">Loading your cart...</p>
+          </Col>
+        </Row>
+      ) : cartData.length > 0 ? (
         <>
           <Table striped bordered hover responsive size="sm">
             <thead>
