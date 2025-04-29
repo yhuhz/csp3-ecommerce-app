@@ -51,7 +51,10 @@ export default function UserView({ productData }) {
         {products.length > 0 ? (
           products.map((product) => (
             <Col key={product._id} md={4} className="mb-4">
-              <Card className="h-100">
+              <Card
+                className="h-100"
+                style={{ boxShadow: '0px 6px 8px rgba(0, 0, 0, 0.1)' }}
+              >
                 <Card.Img
                   variant="top"
                   src={product.imageUrl}

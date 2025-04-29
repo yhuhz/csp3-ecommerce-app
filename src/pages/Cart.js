@@ -224,19 +224,19 @@ export default function Products() {
             <tbody>
               {cartData}
               <tr className="align-items-center">
-                <td style={{ backgroundColor: '#d9b768' }}>
+                <td style={{ backgroundColor: '#f2ecff' }}>
                   <Button
                     variant="success"
                     className="px-2 py-0"
                     onClick={checkoutItems}
                   >
-                    Checkout <i className="bi bi-cart-check-fill"></i>
+                    <i className="bi bi-cart-check-fill"></i> Checkout
                   </Button>
                 </td>
                 <td
                   colSpan="4"
                   className="fw-bold text-center"
-                  style={{ backgroundColor: '#d9b768' }}
+                  style={{ backgroundColor: '#f2ecff', color: '#00754b' }}
                 >
                   {new Intl.NumberFormat('en-PH', {
                     style: 'currency',
@@ -247,7 +247,7 @@ export default function Products() {
             </tbody>
           </Table>
           <Button variant="danger" className="px-1 py-1" onClick={clearCart}>
-            Clear Cart <i className="bi bi-trash3-fill"></i>
+            <i className="bi bi-trash3-fill"></i> Clear Cart
           </Button>
         </>
       ) : (
