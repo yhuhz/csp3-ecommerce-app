@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ProductSearch from './SearchProducts';
 import { Notyf } from 'notyf';
+import UserContext from '../context/UserContext';
 
 export default function UserView({ productData }) {
+  const { user } = useContext(UserContext);
   const [products, setProducts] = useState([]);
   const notyf = new Notyf();
 
@@ -100,13 +102,17 @@ export default function UserView({ productData }) {
                     >
                       Details
                     </Link>
-                    <Button
-                      variant="success"
-                      className="w-100"
-                      onClick={(e) => addToCart(e, product._id)}
-                    >
-                      <i className="bi bi-bag-plus-fill"></i> Add to Cart
-                    </Button>
+                    {user.id !== null ? (
+                      <Button
+                        variant="success"
+                        className="w-100"
+                        onClick={(e) => addToCart(e, product._id)}
+                      >
+                        <i className="bi bi-bag-plus-fill"></i> Add to Cart
+                      </Button>
+                    ) : (
+                      ''
+                    )}
                   </div>
                 </Card.Body>
               </Card>

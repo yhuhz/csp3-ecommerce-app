@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   Container,
   Row,
@@ -11,8 +11,10 @@ import {
 import { Link } from 'react-router-dom';
 import SearchResult from './SearchResult';
 import { Notyf } from 'notyf';
+import UserContext from '../context/UserContext';
 
 export default function ProductSearch() {
+  const { user } = useContext(UserContext);
   const notyf = new Notyf();
 
   const [productName, setProductName] = useState('');
@@ -224,13 +226,17 @@ export default function ProductSearch() {
                         >
                           Details
                         </Link>
-                        <Button
-                          variant="success"
-                          className="w-100"
-                          onClick={(e) => addToCart(e, product._id)}
-                        >
-                          <i className="bi bi-bag-plus-fill"></i> Add to Cart
-                        </Button>
+                        {user.id !== null ? (
+                          <Button
+                            variant="success"
+                            className="w-100"
+                            onClick={(e) => addToCart(e, product._id)}
+                          >
+                            <i className="bi bi-bag-plus-fill"></i> Add to Cart
+                          </Button>
+                        ) : (
+                          ''
+                        )}
                       </div>
                     </Card.Body>
                   </Card>
