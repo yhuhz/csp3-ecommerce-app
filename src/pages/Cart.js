@@ -36,7 +36,8 @@ export default function Products() {
       });
   };
 
-  const removeItem = (itemId) => {
+  const removeItem = (e, itemId) => {
+    e.preventDefault();
     fetch(
       `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/${itemId}/remove-from-cart`,
       {
@@ -58,7 +59,8 @@ export default function Products() {
       });
   };
 
-  const clearCart = () => {
+  const clearCart = (e) => {
+    e.preventDefault();
     fetch(
       `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/clear-cart`,
       {
@@ -80,7 +82,8 @@ export default function Products() {
       });
   };
 
-  const checkoutItems = () => {
+  const checkoutItems = (e) => {
+    e.preventDefault();
     fetch(
       `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/orders/checkout`,
       {

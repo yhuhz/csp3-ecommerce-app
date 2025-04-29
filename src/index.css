@@ -34,3 +34,8 @@ span,
 div {
   font-family: 'Roboto', sans-serif;
 }
+
+th {
+  background-color: gray !important;
+  color: white !important;
+}
