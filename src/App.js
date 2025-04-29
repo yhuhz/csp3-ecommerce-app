@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { UserProvider } from './context/UserContext';
-import AppNavbar from './components/AppNavbar';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Logout from './pages/Logout';
-import Products from './pages/Products';
-import Cart from './pages/Cart';
-import ProductView from './pages/ProductView';
+import { useState, useEffect } from "react";
+import { Container } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { UserProvider } from "./context/UserContext";
+import AppNavbar from "./components/AppNavbar";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Logout from "./pages/Logout";
+import Products from "./pages/Products";
+import Cart from "./pages/Cart";
+import ProductView from "./pages/ProductView";
+import Profile from "./pages/Profile";
 
 function App() {
   const [user, setUser] = useState({
@@ -27,12 +28,12 @@ function App() {
   // }, [user]);
 
   useEffect(() => {
-    if (localStorage.getItem('token') !== null) {
+    if (localStorage.getItem("token") !== null) {
       fetch(
-        'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/details',
+        "https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/details",
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       )
@@ -63,6 +64,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/products/:productId" element={<ProductView />} />
           </Routes>
         </Container>
