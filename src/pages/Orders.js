@@ -1,10 +1,10 @@
-import { useState, useEffect, useContext } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { Table } from 'react-bootstrap';
-import UserContext from '../context/UserContext';
+import { useState, useEffect, useContext } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { Table } from "react-bootstrap";
+import UserContext from "../context/UserContext";
 
 export default function Orders() {
-  const user = localStorage.getItem('token');
+  const user = localStorage.getItem("token");
 
   const [orderData, setOrderData] = useState([]);
 
@@ -14,7 +14,7 @@ export default function Orders() {
       : `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/orders/my-orders`;
 
     fetch(fetchURL, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -42,23 +42,23 @@ export default function Orders() {
                     <td>{o.orderId}</td>
                     <td>{o.productName}</td>
                     <td>
-                      {new Intl.NumberFormat('en-PH', {
-                        style: 'currency',
-                        currency: 'PHP',
+                      {new Intl.NumberFormat("en-PH", {
+                        style: "currency",
+                        currency: "PHP",
                       }).format(o.subtotal / o.quantity)}
                     </td>
                     <td>{o.quantity}</td>
                     <td>
-                      {new Intl.NumberFormat('en-PH', {
-                        style: 'currency',
-                        currency: 'PHP',
+                      {new Intl.NumberFormat("en-PH", {
+                        style: "currency",
+                        currency: "PHP",
                       }).format(o.subtotal)}
                     </td>
                     <td>
-                      {new Date(o.orderedOn).toLocaleDateString()}{' '}
+                      {new Date(o.orderedOn).toLocaleDateString()}{" "}
                       {new Date(o.orderedOn).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
+                        hour: "2-digit",
+                        minute: "2-digit",
                       })}
                     </td>
                   </tr>
@@ -80,23 +80,23 @@ export default function Orders() {
                   <tr key={`${o.productId}-${o.orderedOn}`}>
                     <td>{o.productName}</td>
                     <td>
-                      {new Intl.NumberFormat('en-PH', {
-                        style: 'currency',
-                        currency: 'PHP',
+                      {new Intl.NumberFormat("en-PH", {
+                        style: "currency",
+                        currency: "PHP",
                       }).format(o.subtotal / o.quantity)}
                     </td>
                     <td>{o.quantity}</td>
                     <td>
-                      {new Intl.NumberFormat('en-PH', {
-                        style: 'currency',
-                        currency: 'PHP',
+                      {new Intl.NumberFormat("en-PH", {
+                        style: "currency",
+                        currency: "PHP",
                       }).format(o.subtotal)}
                     </td>
                     <td>
-                      {new Date(o.orderedOn).toLocaleDateString()}{' '}
+                      {new Date(o.orderedOn).toLocaleDateString()}{" "}
                       {new Date(o.orderedOn).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
+                        hour: "2-digit",
+                        minute: "2-digit",
                       })}
                     </td>
                   </tr>
@@ -157,13 +157,13 @@ export default function Orders() {
             </Table>
           ) : (
             <h5 className="text-center">
-              You have no orders yet. <Link to={'/products'}>Shop now!</Link>{' '}
+              You have no orders yet. <Link to={"/products"}>Shop now!</Link>{" "}
             </h5>
           )}
         </>
       )}
     </>
   ) : (
-    <Navigate to={'/'} />
+    <Navigate to={"/"} />
   );
 }
