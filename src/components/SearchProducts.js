@@ -44,7 +44,28 @@ export default function ProductSearch() {
       );
       const data = await response.json();
       setSearchResults(data[0]);
-      console.log("API Response:", data);
+    } catch (error) {
+      console.error("Error searching for courses:", error);
+    }
+  };
+
+  const handleSearchByPrice = async () => {
+    try {
+      const response = await fetch(
+        "https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/search-by-price",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            minPrice: minPrice,
+            maxPrice: maxPrice,
+          }),
+        }
+      );
+      const data = await response.json();
+      setSearchResults(data);
     } catch (error) {
       console.error("Error searching for courses:", error);
     }
@@ -105,7 +126,9 @@ export default function ProductSearch() {
           <Button variant="primary" onClick={handleSearch}>
             Search by Name
           </Button>
-          <Button variant="primary">Search by Price</Button>
+          <Button variant="primary" onClick={handleSearchByPrice}>
+            Search by Price
+          </Button>
           <Button variant="danger" onClick={handleClear}>
             Clear
           </Button>
@@ -114,9 +137,11 @@ export default function ProductSearch() {
       {Array.isArray(searchResults) && searchResults.length > 0 && (
         <>
           <h4 className="mt-5">Search Results:</h4>
-          {searchResults.map((product, index) => (
-            <SearchResult key={index} product={product} />
-          ))}
+          {searchResults
+            .filter((product) => product.isActive) // <-- Filter active
+            .map((product, index) => (
+              <SearchResult key={index} product={product} />
+            ))}
         </>
       )}
       <hr className="mt-5" />
