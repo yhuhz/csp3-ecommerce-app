@@ -69,52 +69,57 @@ export default function Products() {
     )
       .then((res) => res.json())
       .then((data) => {
-        setTotalPrice(data.cart.totalPrice);
-        setCartData(
-          data.cart.cartItems.map((item) => {
-            return (
-              <tr key={item.productId}>
-                <td>{item.productName}</td>
-                <td>
-                  {new Intl.NumberFormat('en-PH', {
-                    style: 'currency',
-                    currency: 'PHP',
-                  }).format(item.subtotal)}
-                </td>
-                <td className="text-center">
-                  <div className="d-flex align-items-center justify-content-center">
-                    <button
-                      className="btn btn-success btn-sm mx-2"
-                      onClick={() =>
-                        updateQuantity(item.productId, item.quantity - 1)
-                      }
-                    >
-                      <i className="bi bi-dash-circle"></i>
-                    </button>
-                    <div className="mx-3">{item.quantity}</div>
+        if (data.message === `User's cart not found`) {
+          setTotalPrice(0);
+          setCartData([]);
+        } else {
+          setTotalPrice(data.cart.totalPrice);
+          setCartData(
+            data.cart.cartItems.map((item) => {
+              return (
+                <tr key={item.productId}>
+                  <td>{item.productName}</td>
+                  <td>
+                    {new Intl.NumberFormat('en-PH', {
+                      style: 'currency',
+                      currency: 'PHP',
+                    }).format(item.subtotal)}
+                  </td>
+                  <td className="text-center">
+                    <div className="d-flex align-items-center justify-content-center">
+                      <button
+                        className="btn btn-success btn-sm mx-2"
+                        onClick={() =>
+                          updateQuantity(item.productId, item.quantity - 1)
+                        }
+                      >
+                        <i className="bi bi-dash-circle"></i>
+                      </button>
+                      <div className="mx-3">{item.quantity}</div>
 
-                    <button
-                      className="btn btn-success btn-sm mx-2"
-                      onClick={() =>
-                        updateQuantity(item.productId, item.quantity + 1)
-                      }
+                      <button
+                        className="btn btn-success btn-sm mx-2"
+                        onClick={() =>
+                          updateQuantity(item.productId, item.quantity + 1)
+                        }
+                      >
+                        <i className="bi bi-plus-circle"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td className="text-center">
+                    <Button
+                      variant="danger"
+                      onClick={() => removeItem(item.productId)}
                     >
-                      <i className="bi bi-plus-circle"></i>
-                    </button>
-                  </div>
-                </td>
-                <td className="text-center">
-                  <Button
-                    variant="danger"
-                    onClick={() => removeItem(item.productId)}
-                  >
-                    <i className="bi bi-trash3-fill"></i>
-                  </Button>
-                </td>
-              </tr>
-            );
-          })
-        );
+                      <i className="bi bi-trash3-fill"></i>
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })
+          );
+        }
       });
   };
 
@@ -144,7 +149,7 @@ export default function Products() {
               {new Intl.NumberFormat('en-PH', {
                 style: 'currency',
                 currency: 'PHP',
-              }).format(totalPrice)}
+              }).format(totalPrice || 0)}
             </td>
           </tr>
         </tbody>
