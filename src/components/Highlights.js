@@ -28,15 +28,13 @@ const Highlights = ({ productData }) => {
   return (
     <div
       style={{
-        padding: '50px 0',
+        padding: '20px 0',
         position: 'relative',
       }}
     >
       <Container>
-        <h2 style={{ textAlign: 'center', color: 'white' }}>
-          ✨ Highlights ✨
-        </h2>
-        <p style={{ textAlign: 'center', color: 'white' }}>
+        <h1 style={{ textAlign: 'center' }}>Featured Products</h1>
+        <p style={{ textAlign: 'center' }}>
           Discover our top picks and latest features!
         </p>
         <Row>

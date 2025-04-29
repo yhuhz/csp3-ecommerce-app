@@ -16,13 +16,20 @@ export default function Products({ productData, fetchData }) {
               <td>{product._id}</td>
               <td>{product.name}</td>
               <td>{product.description}</td>
-              <td>{product.price}</td>
+              <td>
+                {new Intl.NumberFormat('en-PH', {
+                  style: 'currency',
+                  currency: 'PHP',
+                }).format(product.price)}
+              </td>
               <td>{product.imageUrl.slice(0, 15)}...</td>
               <td className={product.isActive ? 'text-success' : 'text-danger'}>
                 {product.isActive ? 'Available' : 'Unavailable'}
               </td>
               <td className="text-center">
-                <Button variant="info">Orders</Button>
+                <Button variant="info" className="py-0 px-1 text-white">
+                  <i className="bi bi-cart-check-fill"></i>
+                </Button>
               </td>
               <td>
                 <EditProduct product={product} fetchData={fetchData} />
@@ -42,10 +49,10 @@ export default function Products({ productData, fetchData }) {
       <h3 className="text-center mt-5">Admin Dashboard</h3>
       <AddProduct fetchData={fetchData} />
 
-      <Table striped bordered hover responsive>
+      <Table striped bordered hover responsive size="sm">
         <thead>
           <tr>
-            <th>ID</th>
+            <th className="col-1">ID</th>
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>

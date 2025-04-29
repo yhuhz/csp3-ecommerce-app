@@ -61,22 +61,22 @@ export default function ArchiveProducts({ product, fetchData }) {
       {isActive ? (
         <Button
           variant="danger"
-          className="mx-1"
+          className="px-1 py-0"
           onClick={() => {
             archiveToggle();
           }}
         >
-          Disable
+          <i class="bi bi-archive-fill"></i>
         </Button>
       ) : (
         <Button
           variant="success"
-          className="mx-1"
+          className="px-1 py-0"
           onClick={() => {
             activateToggle();
           }}
         >
-          Activate
+          <i class="bi bi-check-circle-fill"></i>
         </Button>
       )}
     </>

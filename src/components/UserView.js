@@ -12,7 +12,7 @@ export default function UserView({ productData }) {
 
   return (
     <>
-    <ProductSearch />
+      <ProductSearch />
       <Row className="justify-content-center mt-5">
         <Col md={8} className="text-center">
           <h1 className="mb-4">Our Products</h1>
@@ -24,22 +24,22 @@ export default function UserView({ productData }) {
           products.map((product) => (
             <Col key={product._id} md={4} className="mb-4">
               <Card className="h-100">
-              <Card.Img 
-                variant="top" 
-                src={product.imageUrl} 
-                style={{ height: "250px", objectFit: "cover" }} 
-                alt={product.name} 
-              />
+                <Card.Img
+                  variant="top"
+                  src={product.imageUrl}
+                  style={{ height: '250px', objectFit: 'cover' }}
+                  alt={product.name}
+                />
                 <Card.Body className="d-flex flex-column justify-content-between">
                   <div>
                     <Card.Title>
-                      <a 
+                      <a
                         href={`/products/${product._id}`}
                         style={{
-                          textDecoration: "underline",
-                          color: "#0d6efd",
-                          fontWeight: "bold",
-                          fontSize: "1.1rem"
+                          textDecoration: 'underline',
+                          color: '#0d6efd',
+                          fontWeight: 'bold',
+                          fontSize: '1.1rem',
                         }}
                       >
                         {product.name}
@@ -48,19 +48,22 @@ export default function UserView({ productData }) {
                     <Card.Text className="mt-3">
                       {product.description}
                     </Card.Text>
-                    <Card.Text 
-                      style={{ 
-                        color: "orange", 
-                        fontWeight: "bold", 
-                        fontSize: "1.2rem" 
+                    <Card.Text
+                      style={{
+                        color: 'orange',
+                        fontWeight: 'bold',
+                        fontSize: '1.2rem',
                       }}
                     >
-                      ₱{product.price}
+                      {new Intl.NumberFormat('en-PH', {
+                        style: 'currency',
+                        currency: 'PHP',
+                      }).format(product.price)}
                     </Card.Text>
                   </div>
 
-                  <Link 
-                    to={`/products/${product._id}`} 
+                  <Link
+                    to={`/products/${product._id}`}
                     className="btn btn-primary w-100 mt-3"
                   >
                     Details
