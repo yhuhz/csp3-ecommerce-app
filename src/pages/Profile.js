@@ -1,14 +1,16 @@
 import { useState, useEffect, useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import UserContext from "../context/UserContext";
 import { Notyf } from "notyf";
+import ResetPassword from "../components/ResetPassword";
 
 export default function Profile() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const notyf = new Notyf();
 
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
+  const user = localStorage.getItem("token");
   const [details, setDetails] = useState({
     firstName: "",
     lastName: "",
