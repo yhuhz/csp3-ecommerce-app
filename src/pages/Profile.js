@@ -1,9 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { Navigate } from "react-router-dom";
 import { Row, Col, Card, Container } from "react-bootstrap";
-import UserContext from "../context/UserContext";
+import { Link } from "react-router-dom";
 import { Notyf } from "notyf";
-import ResetPassword from "../components/ResetPassword";
 
 export default function Profile() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
