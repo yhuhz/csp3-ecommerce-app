@@ -68,7 +68,7 @@ const Highlights = ({ productData }) => {
                   }
                 />
 
-                <h5>{product.name}</h5>
+                <h5 className="mt-3">{product.name}</h5>
                 <p>{product.description}</p>
               </div>
             </Col>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Container,
   Row,
@@ -7,11 +7,11 @@ import {
   Button,
   InputGroup,
   Card,
-} from "react-bootstrap";
-import SearchResult from "./SearchResult";
+} from 'react-bootstrap';
+import SearchResult from './SearchResult';
 
 export default function ProductSearch() {
-  const [productName, setProductName] = useState("");
+  const [productName, setProductName] = useState('');
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(100000);
   const [searchResults, setSearchResults] = useState([]);
@@ -25,7 +25,7 @@ export default function ProductSearch() {
     setMaxPrice((prev) => Math.max(0, prev - 100));
 
   const handleClear = () => {
-    setProductName("");
+    setProductName('');
     setMinPrice(0);
     setMaxPrice(100000);
   };
@@ -33,11 +33,11 @@ export default function ProductSearch() {
   const handleSearch = async () => {
     try {
       const response = await fetch(
-        "https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/search-by-name",
+        'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/search-by-name',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({ name: productName }),
         }
@@ -45,18 +45,18 @@ export default function ProductSearch() {
       const data = await response.json();
       setSearchResults(data[0]);
     } catch (error) {
-      console.error("Error searching for courses:", error);
+      console.error('Error searching for products:', error);
     }
   };
 
   const handleSearchByPrice = async () => {
     try {
       const response = await fetch(
-        "https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/search-by-price",
+        'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/search-by-price',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             minPrice: minPrice,
@@ -67,7 +67,7 @@ export default function ProductSearch() {
       const data = await response.json();
       setSearchResults(data);
     } catch (error) {
-      console.error("Error searching for courses:", error);
+      console.error('Error searching for products:', error);
     }
   };
 
@@ -126,9 +126,7 @@ export default function ProductSearch() {
           <Button variant="primary" onClick={handleSearch}>
             Search by Name
           </Button>
-          <Button variant="primary" onClick={handleSearchByPrice}>
-            Search by Price
-          </Button>
+          <Button variant="primary">Search by Price</Button>
           <Button variant="danger" onClick={handleClear}>
             Clear
           </Button>

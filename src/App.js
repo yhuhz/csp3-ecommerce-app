@@ -21,6 +21,11 @@ function App() {
     localStorage.clear();
   }
 
+  // useEffect(() => {
+  //   console.log(user);
+  //   console.log(localStorage);
+  // }, [user]);
+
   useEffect(() => {
     if (localStorage.getItem('token') !== null) {
       fetch(
