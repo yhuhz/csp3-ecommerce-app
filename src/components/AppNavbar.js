@@ -24,9 +24,13 @@ export default function AppNavbar() {
             <Nav.Link as={NavLink} to="/products">
               Products
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/cart">
-              Cart
-            </Nav.Link>
+            {user.id !== null && !user.isAdmin ? (
+              <Nav.Link as={NavLink} to="/cart">
+                Cart
+              </Nav.Link>
+            ) : (
+              ''
+            )}
             {user.id !== null ? (
               <>
                 <Nav.Link as={NavLink} to="/profile">
