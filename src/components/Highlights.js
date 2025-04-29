@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import ProductView from '../pages/ProductView';
 
 const Highlights = ({ productData }) => {
   const products = productData;
@@ -59,6 +60,7 @@ const Highlights = ({ productData }) => {
                     objectFit: 'cover',
                     borderRadius: '10px',
                     transition: 'transform 0.3s ease-in-out',
+                    cursor: 'pointer',
                   }}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.transform = 'scale(1.05)')
@@ -66,6 +68,9 @@ const Highlights = ({ productData }) => {
                   onMouseLeave={(e) =>
                     (e.currentTarget.style.transform = 'scale(1)')
                   }
+                  onClick={() => {
+                    window.location.href = `/products/${product._id}`;
+                  }}
                 />
 
                 <h5 className="mt-3">{product.name}</h5>
