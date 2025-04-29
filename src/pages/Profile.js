@@ -1,9 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import UserContext from "../context/UserContext";
 import { Notyf } from "notyf";
-import ResetPassword from "../components/ResetPassword";
 
 export default function Profile() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,10 +54,6 @@ export default function Profile() {
     }
   }, [notyf, user.id]);
 
-  if (user.id === null && !isLoading) {
-    return <Navigate to="/products" />;
-  }
-
   return (
     <>
       <Row className="justify-content-center mt-5">
@@ -75,7 +70,7 @@ export default function Profile() {
         </Row>
       ) : (
         <Row className="justify-content-center">
-          <Col md={6}>
+          <Col md={10}>
             <Card>
               <Card.Body>
                 <Card.Title>Personal Information</Card.Title>
@@ -91,12 +86,15 @@ export default function Profile() {
                 <Card.Text>
                   <strong>Mobile Number:</strong> {details.mobileNo}
                 </Card.Text>
+                <Link
+                  className="btn btn-primary"
+                  to={"/profile/reset-password"}
+                >
+                  Reset Password
+                </Link>
               </Card.Body>
             </Card>
           </Col>
-          <Container>
-            <ResetPassword />
-          </Container>
         </Row>
       )}
     </>
