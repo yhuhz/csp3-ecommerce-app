@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { UserProvider } from "./context/UserContext";
-import AppNavbar from "./components/AppNavbar";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Logout from "./pages/Logout";
-import Products from "./pages/Products";
-import Cart from "./pages/Cart";
-import ProductView from "./pages/ProductView";
-import Profile from "./pages/Profile";
-import Orders from "./pages/Orders";
-import ResetPassword from "./components/ResetPassword";
+import { useState, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { UserProvider } from './context/UserContext';
+import AppNavbar from './components/AppNavbar';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Logout from './pages/Logout';
+import Products from './pages/Products';
+import Cart from './pages/Cart';
+import ProductView from './pages/ProductView';
+import Profile from './pages/Profile';
+import Orders from './pages/Orders';
+import ResetPassword from './components/ResetPassword';
 
 function App() {
   const [user, setUser] = useState({
@@ -22,30 +22,47 @@ function App() {
 
   function unsetUser() {
     localStorage.clear();
+    setUser({
+      id: null,
+      isAdmin: null,
+    });
   }
 
   useEffect(() => {
-    if (localStorage.getItem("token") !== null) {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      // Set temporary user state before fetching to prevent redirection
+      setUser((prevUser) => ({
+        ...prevUser,
+        id: localStorage.getItem('userId') || prevUser.id,
+        isAdmin: localStorage.getItem('isAdmin') || prevUser.isAdmin,
+      }));
+
       fetch(
-        "https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/details",
+        'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/details',
         {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       )
         .then((res) => res.json())
         .then((data) => {
-          setUser({
-            id: data._id,
-            isAdmin: data.isAdmin,
-          });
+          if (data?._id) {
+            localStorage.setItem('userId', data._id);
+            localStorage.setItem('isAdmin', data.isAdmin);
+
+            setUser({ id: data._id, isAdmin: data.isAdmin });
+          } else {
+            localStorage.clear();
+            setUser({ id: null, isAdmin: null });
+          }
+        })
+        .catch(() => {
+          localStorage.clear();
+          setUser({ id: null, isAdmin: null });
         });
     } else {
-      setUser({
-        id: null,
-        isAdmin: null,
-      });
+      setUser({ id: null, isAdmin: null });
     }
   }, []);
 

@@ -1,28 +1,30 @@
-import { useState, useEffect, useContext } from "react";
-import { Row, Col, Card, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { Notyf } from "notyf";
+import { useState, useEffect, useContext } from 'react';
+import { Row, Col, Card, Container } from 'react-bootstrap';
+import { Link, Navigate } from 'react-router-dom';
+import { Notyf } from 'notyf';
+import UserContext from '../context/UserContext';
 
 export default function Profile() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const notyf = new Notyf();
 
-  // const { user } = useContext(UserContext);
-  const user = localStorage.getItem("token");
+  const { user } = useContext(UserContext);
+  const token = localStorage.getItem('token');
+
   const [details, setDetails] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    mobileNo: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    mobileNo: '',
   });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (user.id !== null) {
       fetch(
-        "https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/details",
+        'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/details',
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       )
         .then((res) => res.json())
@@ -36,14 +38,14 @@ export default function Profile() {
             });
           } else {
             // If user is not found
-            notyf.error("User not found.");
+            notyf.error('User not found.');
           }
         })
         .catch((error) => {
           // For any other errors
-          console.error("Error fetching user details:", error);
+          console.error('Error fetching user details:', error);
           notyf.error(
-            "Something went wrong, kindly contact us for assistance."
+            'Something went wrong, kindly contact us for assistance.'
           );
         })
         .finally(() => {
@@ -54,7 +56,9 @@ export default function Profile() {
     }
   }, [notyf, user.id]);
 
-  return (
+  return user.id === null && token === null ? (
+    <Navigate to={'/'} />
+  ) : (
     <>
       <Row className="justify-content-center mt-5">
         <Col md={8} className="text-center">
@@ -88,7 +92,7 @@ export default function Profile() {
                 </Card.Text>
                 <Link
                   className="btn btn-primary"
-                  to={"/profile/reset-password"}
+                  to={'/profile/reset-password'}
                 >
                   Reset Password
                 </Link>
