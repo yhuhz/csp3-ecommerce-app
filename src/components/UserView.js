@@ -2,13 +2,41 @@ import { useState, useEffect } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ProductSearch from './SearchProducts';
+import { Notyf } from 'notyf';
 
 export default function UserView({ productData }) {
   const [products, setProducts] = useState([]);
+  const notyf = new Notyf();
 
   useEffect(() => {
     setProducts(productData);
   }, [productData]);
+
+  const addToCart = (e, productId) => {
+    e.preventDefault();
+    fetch(
+      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/add-to-cart`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          productId: productId,
+          quantity: 1,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === 'Item added to cart successfully') {
+          notyf.success('Product Added to Cart');
+        } else {
+          notyf.error('Problem adding to cart');
+        }
+      });
+  };
 
   return (
     <>
@@ -62,12 +90,21 @@ export default function UserView({ productData }) {
                     </Card.Text>
                   </div>
 
-                  <Link
-                    to={`/products/${product._id}`}
-                    className="btn btn-primary w-100 mt-3"
-                  >
-                    Details
-                  </Link>
+                  <div className="d-flex flex-column flex-sm-row justify-content-center mt-3 gap-2">
+                    <Link
+                      to={`/products/${product._id}`}
+                      className="btn btn-primary w-100"
+                    >
+                      Details
+                    </Link>
+                    <Button
+                      variant="success"
+                      className="w-100"
+                      onClick={(e) => addToCart(e, product._id)}
+                    >
+                      <i className="bi bi-bag-plus-fill"></i> Add to Cart
+                    </Button>
+                  </div>
                 </Card.Body>
               </Card>
             </Col>
