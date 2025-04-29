@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
-import { UserProvider } from '../context/UserContext';
-import UserView from '../components/UserView';
-import AdminView from '../components/AdminView';
+import { useState, useEffect, useContext } from "react";
+import { UserProvider } from "../context/UserContext";
+import UserView from "../components/UserView";
+import AdminView from "../components/AdminView";
 
 export default function Products() {
   const { user } = useContext(UserProvider);
@@ -10,15 +10,14 @@ export default function Products() {
   const fetchData = () => {
     let fetchUrl =
       user.isAdmin === true
-        ? 'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/all'
-        : 'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/active';
+        ? "https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/all"
+        : "https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/active";
 
     fetch(fetchUrl, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setProductData(data);
       });
   };
