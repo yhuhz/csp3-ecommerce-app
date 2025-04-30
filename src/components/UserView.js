@@ -46,7 +46,7 @@ export default function UserView({ productData }) {
         </Col>
       </Row>
 
-      <Row className="justify-content-center">
+      <Row className="justify-content-center mb-5">
         {products.length > 0 ? (
           products.map((product) => (
             <Col key={product._id} md={4} className="mb-4">
@@ -92,7 +92,7 @@ export default function UserView({ productData }) {
                     </Card.Text>
                   </div>
 
-                  <div className="d-flex flex-column flex-sm-row justify-content-center mt-3 gap-2">
+                  <div className="d-flex flex-column flex-xl-row justify-content-center mt-3 gap-2">
                     <Link
                       to={`/products/${product._id}`}
                       className="btn btn-primary w-100"

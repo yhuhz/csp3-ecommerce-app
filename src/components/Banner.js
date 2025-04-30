@@ -12,7 +12,7 @@ const Banner = () => {
     >
       <Container>
         <Row className="justify-content-center">
-          <Col md={8} lg={6}>
+          <Col md={8} lg={8}>
             <div
               style={{
                 backgroundColor: '#a5a5a5',
