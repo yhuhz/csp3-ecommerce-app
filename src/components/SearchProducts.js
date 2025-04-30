@@ -9,7 +9,6 @@ import {
   Card,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import SearchResult from './SearchResult';
 import { Notyf } from 'notyf';
 import UserContext from '../context/UserContext';
 

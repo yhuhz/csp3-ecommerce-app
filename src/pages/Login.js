@@ -76,48 +76,36 @@ export default function Login() {
     <Navigate to="/" />
   ) : (
     <>
-      <Row className="justify-content-center mt-5">
-        <Col md={6} className="text-center">
+      <Row className="justify-content-center vh-100 mt-5">
+        <Col xs={10} sm={6} md={4} className="text-center">
           <h1 className="mb-4">Login</h1>
+          <Form onSubmit={loginUser}>
+            {['email', 'password'].map((type) => (
+              <Form.Group className="mb-3" controlId={`form${type}`} key={type}>
+                <Form.Control
+                  type={type}
+                  placeholder={type === 'email' ? 'Enter email' : 'Password'}
+                  required
+                  value={type === 'email' ? email : password}
+                  onChange={(e) =>
+                    type === 'email'
+                      ? setEmail(e.target.value)
+                      : setPassword(e.target.value)
+                  }
+                />
+              </Form.Group>
+            ))}
+            <Button
+              variant={isActive ? 'primary' : 'danger'}
+              type="submit"
+              disabled={!isActive}
+              className="w-100"
+            >
+              Login
+            </Button>
+          </Form>
         </Col>
       </Row>
-
-      <Form onSubmit={(e) => loginUser(e)}>
-        <Form.Group className="mb-3" controlId="formEmail">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            required
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            required
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          ></Form.Control>
-        </Form.Group>
-
-        {isActive ? (
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
-        ) : (
-          <Button variant="danger" type="submit" disabled>
-            Login
-          </Button>
-        )}
-      </Form>
     </>
   );
 }

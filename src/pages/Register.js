@@ -1,5 +1,4 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Form, Button, Col } from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
 import UserContext from '../context/UserContext';
 import { Navigate } from 'react-router-dom';
@@ -8,7 +7,7 @@ import { Notyf } from 'notyf';
 export default function Register() {
   const notyf = new Notyf();
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -78,97 +77,73 @@ export default function Register() {
   return user.id !== null ? (
     <Navigate to="/" />
   ) : (
-    <div>
-      <h1 className="text-center mt-5">Register</h1>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <Col xs={10} sm={6} md={4} className="text-center">
+        <h1 className="mb-4">Register</h1>
+        <Form onSubmit={registerUser}>
+          {[
+            {
+              type: 'text',
+              placeholder: 'First Name',
+              state: firstName,
+              setState: setFirstName,
+            },
+            {
+              type: 'text',
+              placeholder: 'Last Name',
+              state: lastName,
+              setState: setLastName,
+            },
+            {
+              type: 'email',
+              placeholder: 'Email',
+              state: email,
+              setState: setEmail,
+            },
+            {
+              type: 'number',
+              placeholder: 'Mobile Number',
+              state: mobileNo,
+              setState: setMobileNo,
+            },
+            {
+              type: 'password',
+              placeholder: 'Password',
+              state: password,
+              setState: setPassword,
+            },
+            {
+              type: 'password',
+              placeholder: 'Confirm Password',
+              state: confirmPassword,
+              setState: setConfirmPassword,
+            },
+          ].map(({ type, placeholder, state, setState }, index) => (
+            <Form.Group
+              className="mb-3"
+              controlId={`form${placeholder.replace(' ', '')}`}
+              key={index}
+            >
+              <Form.Control
+                type={type}
+                placeholder={placeholder}
+                required
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              />
+            </Form.Group>
+          ))}
 
-      <Form onSubmit={(e) => registerUser(e)}>
-        <Form.Group className="mb-3" controlId="formFirstName">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter First Name"
-            required
-            value={firstName}
-            onChange={(e) => {
-              setFirstName(e.target.value);
-            }}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formLastName">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Last Name"
-            required
-            value={lastName}
-            onChange={(e) => {
-              setLastName(e.target.value);
-            }}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter Email"
-            required
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formMobileNo">
-          <Form.Label>Mobile Number</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter 11 Digit No."
-            required
-            value={mobileNo}
-            onChange={(e) => {
-              setMobileNo(e.target.value);
-            }}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter Password"
-            required
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formConfirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm Password"
-            required
-            value={confirmPassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-            }}
-          />
-        </Form.Group>
-        {isActive ? (
-          <Button variant="primary" type="submit" id="submitButton">
+          <Button
+            variant={isActive ? 'primary' : 'danger'}
+            type="submit"
+            disabled={!isActive}
+            className="w-100"
+          >
             Register
           </Button>
-        ) : (
-          <Button variant="danger" type="submit" id="submitButton" disabled>
-            Register
-          </Button>
-        )}
-      </Form>
+        </Form>
+      </Col>
     </div>
   );
 }
