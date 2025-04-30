@@ -1,8 +1,8 @@
 import Container from 'react-bootstrap/Container';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
 export default function AppNavbar() {

@@ -1,29 +1,16 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import ProductView from '../pages/ProductView';
 
 const Highlights = ({ productData }) => {
   const products = productData;
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex] = useState(0);
   const itemsPerPage = 3;
 
   const currentProducts = products.slice(
     currentIndex,
     currentIndex + itemsPerPage
   );
-
-  const handleNext = () => {
-    if (currentIndex + itemsPerPage < products.length) {
-      setCurrentIndex(currentIndex + itemsPerPage);
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentIndex - itemsPerPage >= 0) {
-      setCurrentIndex(currentIndex - itemsPerPage);
-    }
-  };
 
   return (
     <div

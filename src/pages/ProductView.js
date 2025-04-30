@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
-import { useParams, useNavigate, Navigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Notyf } from 'notyf';
 import UserContext from '../context/UserContext';
 
@@ -8,7 +8,6 @@ export default function ProductView() {
   const { user } = useContext(UserContext);
 
   const notyf = new Notyf();
-  const navigate = new useNavigate();
 
   const { productId } = useParams();
   const [name, setName] = useState('');

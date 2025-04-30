@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { Row, Col, Card, Container } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 import { Link, Navigate } from 'react-router-dom';
 import { Notyf } from 'notyf';
 import UserContext from '../context/UserContext';

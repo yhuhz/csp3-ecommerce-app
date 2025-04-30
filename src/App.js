@@ -40,12 +40,9 @@ function App() {
         isAdmin: localStorage.getItem('isAdmin') || prevUser.isAdmin,
       }));
 
-      fetch(
-        'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/details',
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data?._id) {
