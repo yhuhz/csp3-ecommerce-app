@@ -13,6 +13,7 @@ import ProductView from './pages/ProductView';
 import Profile from './pages/Profile';
 import Orders from './pages/Orders';
 import ResetPassword from './components/ResetPassword';
+import Error from './pages/Error';
 
 function App() {
   const [user, setUser] = useState({
@@ -82,6 +83,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/reset-password" element={<ResetPassword />} />
             <Route path="/products/:productId" element={<ProductView />} />
+            <Route path="/*" element={<Error />} />
           </Routes>
         </Container>
       </Router>
