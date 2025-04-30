@@ -16,9 +16,7 @@ export default function ProductView() {
   const [image, setImage] = useState('');
 
   useEffect(() => {
-    fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/${productId}`
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}`)
       .then((res) => res.json())
       .then((data) => {
         setName(data.name);
@@ -29,20 +27,17 @@ export default function ProductView() {
   }, [user]);
 
   const addToCart = () => {
-    fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/add-to-cart`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify({
-          productId: productId,
-          quantity: 1,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/add-to-cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({
+        productId: productId,
+        quantity: 1,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.message === 'Item added to cart successfully') {

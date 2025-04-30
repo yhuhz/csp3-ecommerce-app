@@ -13,8 +13,8 @@ export default function Orders() {
   const fetchData = () => {
     if (user.id !== null) {
       const fetchURL = user.isAdmin
-        ? `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/orders/all-orders`
-        : `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/orders/my-orders`;
+        ? `${process.env.REACT_APP_API_BASE_URL}/orders/all-orders`
+        : `${process.env.REACT_APP_API_BASE_URL}/orders/my-orders`;
 
       fetch(fetchURL, {
         headers: { Authorization: `Bearer ${token}` },

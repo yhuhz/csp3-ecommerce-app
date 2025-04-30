@@ -10,7 +10,7 @@ export default function ArchiveProducts({ product, fetchData }) {
 
   function archiveToggle() {
     fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/${productId}/archive`,
+      `${process.env.REACT_APP_API_BASE_URL}/products/${productId}/archive`,
       {
         method: 'PATCH',
         headers: {
@@ -34,7 +34,7 @@ export default function ArchiveProducts({ product, fetchData }) {
 
   function activateToggle() {
     fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/${productId}/activate`,
+      `${process.env.REACT_APP_API_BASE_URL}/products/${productId}/activate`,
       {
         method: 'PATCH',
         headers: {

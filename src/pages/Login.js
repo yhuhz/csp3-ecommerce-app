@@ -25,17 +25,14 @@ export default function Login() {
 
   function loginUser(e) {
     e.preventDefault();
-    fetch(
-      'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/login',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/users/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.access !== undefined) {
@@ -57,12 +54,9 @@ export default function Login() {
   }
 
   function retrieveUserDetails(token) {
-    fetch(
-      'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/details',
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((res) => res.json())
       .then((data) => {
         setUser({

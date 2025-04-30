@@ -14,20 +14,17 @@ export default function Products() {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const updateQuantity = (itemId, itemQuantity) => {
-    fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/update-cart-quantity`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          productId: itemId,
-          newQuantity: itemQuantity,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/update-cart-quantity`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        productId: itemId,
+        newQuantity: itemQuantity,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.message === 'Item quantity changed successfully') {
@@ -41,7 +38,7 @@ export default function Products() {
   const removeItem = (e, itemId) => {
     e.preventDefault();
     fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/${itemId}/remove-from-cart`,
+      `${process.env.REACT_APP_API_BASE_URL}/cart/${itemId}/remove-from-cart`,
       {
         method: 'PATCH',
         headers: {
@@ -63,16 +60,13 @@ export default function Products() {
 
   const clearCart = (e) => {
     e.preventDefault();
-    fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/clear-cart`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/clear-cart`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.message === 'Cart cleared successfully') {
@@ -86,20 +80,17 @@ export default function Products() {
 
   const checkoutItems = (e) => {
     e.preventDefault();
-    fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/orders/checkout`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          productsOrdered: cartData,
-          totalPrice: totalPrice,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/orders/checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        productsOrdered: cartData,
+        totalPrice: totalPrice,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
@@ -113,14 +104,11 @@ export default function Products() {
 
   const fetchData = () => {
     if (user.id !== null) {
-      fetch(
-        `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/get-cart`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/get-cart`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data.message === `User's cart not found`) {

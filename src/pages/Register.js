@@ -36,22 +36,19 @@ export default function Register() {
 
   function registerUser(e) {
     e.preventDefault();
-    fetch(
-      'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/register',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          mobileNo: mobileNo,
-          password: password,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/users/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        mobileNo: mobileNo,
+        password: password,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.message === 'User registered successfully') {

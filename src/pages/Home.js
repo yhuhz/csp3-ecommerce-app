@@ -8,8 +8,7 @@ export default function Home() {
   const [productData, setProductData] = useState([]);
 
   const fetchData = () => {
-    let fetchUrl =
-      'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/active';
+    let fetchUrl = `${process.env.REACT_APP_API_BASE_URL}/products/active`;
 
     fetch(fetchUrl, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },

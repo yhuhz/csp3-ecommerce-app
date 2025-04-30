@@ -25,7 +25,7 @@ export default function EditProduct({ product, fetchData }) {
     e.preventDefault();
 
     fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/${productId}/update`,
+      `${process.env.REACT_APP_API_BASE_URL}/products/${productId}/update`,
       {
         method: 'PATCH',
         headers: {

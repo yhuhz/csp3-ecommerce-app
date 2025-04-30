@@ -1,26 +1,26 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setMessage("Passwords do not match");
+      setMessage('Passwords do not match');
       return;
     }
 
     try {
-      const token = localStorage.getItem("token"); // Replace with your actual JWT token
+      const token = localStorage.getItem('token'); // Replace with your actual JWT token
       const response = await fetch(
-        "https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/users/update-password",
+        `${process.env.REACT_APP_API_BASE_URL}/users/update-password`,
         {
-          method: "PATCH",
+          method: 'PATCH',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ newPassword: password }),
@@ -28,15 +28,15 @@ const ResetPassword = () => {
       );
 
       if (response.ok) {
-        setMessage("Password reset successfully");
-        setPassword("");
-        setConfirmPassword("");
+        setMessage('Password reset successfully');
+        setPassword('');
+        setConfirmPassword('');
       } else {
         const errorData = await response.json();
         setMessage(errorData.message);
       }
     } catch (error) {
-      setMessage("An error occurred. Please try again.");
+      setMessage('An error occurred. Please try again.');
       console.error(error);
     }
   };

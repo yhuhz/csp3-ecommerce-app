@@ -23,22 +23,19 @@ export default function AddProduct({ fetchData }) {
   const addProduct = (e, productId) => {
     e.preventDefault();
 
-    fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: description,
-          price: price,
-          imageUrl: imageUrl,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({
+        name: name,
+        description: description,
+        price: price,
+        imageUrl: imageUrl,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

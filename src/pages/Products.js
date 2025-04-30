@@ -12,8 +12,8 @@ export default function Products() {
   const fetchData = () => {
     let fetchUrl =
       user.isAdmin === true
-        ? 'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/all'
-        : 'https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/products/active';
+        ? `${process.env.REACT_APP_API_BASE_URL}/products/all`
+        : `${process.env.REACT_APP_API_BASE_URL}/products/active`;
 
     fetch(fetchUrl, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },

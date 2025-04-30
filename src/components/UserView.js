@@ -16,20 +16,17 @@ export default function UserView({ productData }) {
 
   const addToCart = (e, productId) => {
     e.preventDefault();
-    fetch(
-      `https://einvfmh2fe.execute-api.us-west-2.amazonaws.com/production/cart/add-to-cart`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify({
-          productId: productId,
-          quantity: 1,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/add-to-cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({
+        productId: productId,
+        quantity: 1,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.message === 'Item added to cart successfully') {
