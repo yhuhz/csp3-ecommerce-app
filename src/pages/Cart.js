@@ -35,8 +35,7 @@ export default function Products() {
       });
   };
 
-  const removeItem = (e, itemId) => {
-    e.preventDefault();
+  const removeItem = (itemId) => {
     fetch(
       `${process.env.REACT_APP_API_BASE_URL}/cart/${itemId}/remove-from-cart`,
       {
