@@ -20,7 +20,7 @@ const Banner = () => {
                 borderRadius: '8px',
               }}
             >
-              <h1>Welcome to Our Store!</h1>
+              <h1>Welcome to JN Store!</h1>
               <p>
                 Your one-stop shop for everything you love. Explore now and find
                 amazing deals!
